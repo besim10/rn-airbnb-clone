@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { colors } from "../../../constants/Colors";
 import { typography } from "../../../constants/Typography";
-interface IThemeContextProps {
+export interface IThemeContextProps {
   colors: typeof colors.light;
   toggleTheme: () => void;
   isLightTheme: boolean;

@@ -5,9 +5,11 @@ const size = {
 };
 
 const letterSpacing = {
-  S: 2,
-  M: 5,
-  L: 10,
+  tiny: 8,
+  small: 16,
+  base: 24,
+  large: 48,
+  xlarge: 64,
 };
 
 export const typography = { size, letterSpacing };
