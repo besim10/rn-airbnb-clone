@@ -4,7 +4,12 @@ import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import useThemedStyles from "../../../../hooks/useThemedStyles";
 import useTheme from "../../../../hooks/useTheme";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../../firebase/config";
+import {
+  ADD_DOC,
+  COLLECTION,
+  FIREBASE_AUTH,
+  FIRESTORE_DB,
+} from "../../../firebase/config";
 
 // create a component
 const RegisterScreen = () => {
@@ -21,6 +26,13 @@ const RegisterScreen = () => {
         email,
         password
       );
+      const user = response.user;
+      await ADD_DOC(COLLECTION(FIRESTORE_DB, "users"), {
+        uid: user.uid,
+        email,
+        authProvider: "local",
+      });
+
       console.log(response);
     } catch (error) {
       console.log("Error", error);
@@ -49,11 +61,10 @@ const RegisterScreen = () => {
         onChangeText={onPasswordChangeHandler}
         style={style.inputContainer}
       />
-      <Button title="Register" color={theme.colors.PRIMARY} />
       <Button
         title="Register"
         onPress={onSubmitHandler}
-        color={theme.colors.TEXT}
+        color={theme.colors.PRIMARY}
       />
     </View>
   );

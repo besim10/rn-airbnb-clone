@@ -8,6 +8,8 @@ import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { User } from "firebase/auth";
 import PublicNavigation from "./navigation/PublicNavigation";
+import { AuthenticationProvider } from "./src/app/providers/Authentication/AuthenticationProvider";
+import RootStack from "./navigation/PrivateNavigation/RootStack";
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -39,9 +41,11 @@ export default function App() {
   return (
     <ThemeProvider>
       <SafeAreaProvider onLayout={onLayoutRootView}>
-        <NavigationContainer>
-          {user ? <PrivateNavigation /> : <PublicNavigation />}
-        </NavigationContainer>
+        <AuthenticationProvider>
+          <NavigationContainer>
+            <RootStack />
+          </NavigationContainer>
+        </AuthenticationProvider>
       </SafeAreaProvider>
     </ThemeProvider>
   );

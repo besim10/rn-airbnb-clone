@@ -1,29 +1,30 @@
-const SUN_FLOWER = "#f1c40f";
-const ASBESTOS = "#7f8c8d";
-const MIDNIGHT_BLUE = "#2c3e50";
-const EMERALD = "#2ecc71";
-const ALIZARIN = "#e74c3c";
+const RAUSCH = "#FF5A5F";
+const BABU = "#00A699";
+const ARCHES = "#FC642D";
+const HOF = "#484848";
+const FOGGY = "#767676";
 const CLOUDS = "#ecf0f1";
-const SILVER = "#bdc3c7";
+const BLACK = "#000";
+const WHITE = "#FFF";
 
 const common = {
-  PRIMARY: SUN_FLOWER,
-  SUCCESS: EMERALD,
-  ERROR: ALIZARIN,
+  PRIMARY: RAUSCH,
+  SUCCESS: BABU,
+  ERROR: RAUSCH,
 };
 
 const light = {
   ...common,
   BACKGROUND: CLOUDS,
-  TEXT: MIDNIGHT_BLUE,
-  TEXT_SECONDARY: ASBESTOS,
+  TEXT: BLACK,
+  TEXT_SECONDARY: FOGGY,
 };
 
 const dark = {
   ...common,
-  BACKGROUND: MIDNIGHT_BLUE,
-  TEXT: CLOUDS,
-  TEXT_SECONDARY: SILVER,
+  BACKGROUND: HOF,
+  TEXT: WHITE,
+  TEXT_SECONDARY: CLOUDS,
 };
 
 export const colors = { light, dark };
