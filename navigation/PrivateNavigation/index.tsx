@@ -1,20 +1,23 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Explore from "../../src/screens/Private/Explore";
 import React from "react";
-import {
-  FontAwesome5,
-  Ionicons,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import Wishlist from "../../src/screens/Private/Wishlist";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Profile from "../../src/screens/Private/Profile";
+import Inbox from "../../src/screens/Private/Inbox";
+import useTheme from "../../hooks/useTheme";
+
 const PrivateNavigation = () => {
   const Tab = createBottomTabNavigator();
 
+  const theme = useTheme();
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{ tabBarActiveTintColor: theme.colors.PRIMARY }}
+      initialRouteName="Explore"
+    >
       <Tab.Screen
-        name="tab"
+        name="Explore"
         component={Explore}
         options={{
           title: "Explore",
@@ -45,7 +48,7 @@ const PrivateNavigation = () => {
       />
       <Tab.Screen
         name="Inbox"
-        component={Wishlist}
+        component={Inbox}
         options={{
           title: "Inbox",
           tabBarIcon: ({ focused, color, size }) => (
@@ -55,12 +58,13 @@ const PrivateNavigation = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Wishlist}
+        component={Profile}
         options={{
           title: "Profile",
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons name="person-circle-outline" size={24} color={color} />
           ),
+          headerShown: false,
         }}
       />
     </Tab.Navigator>

@@ -10,6 +10,8 @@ import { User } from "firebase/auth";
 import PublicNavigation from "./navigation/PublicNavigation";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import { STRIPE_PUBLISHABLE_KEY } from "@env";
+import { AuthenticationProvider } from "./src/app/providers/Authentication/AuthenticationProvider";
+import RootStack from "./navigation/PrivateNavigation/RootStack";
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -40,13 +42,16 @@ export default function App() {
   }
   return (
     <ThemeProvider>
-      <StripeProvider publishableKey="pk_test_51Nw2O3FzNyB1QVdAl1hUfChSNIt4Ycld0FikKBhlNcEJ0OcZtXNyO9KuGXSac8vD6iBul9BqQ7PuaOn7uVSwGFr300ZslBh4Sq">
+      <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
         <SafeAreaProvider onLayout={onLayoutRootView}>
-          <NavigationContainer>
-            {user ? <PrivateNavigation /> : <PublicNavigation />}
-          </NavigationContainer>
+          <AuthenticationProvider>
+            <NavigationContainer>
+              <RootStack />
+            </NavigationContainer>
+          </AuthenticationProvider>
         </SafeAreaProvider>
       </StripeProvider>
+      <SafeAreaProvider onLayout={onLayoutRootView}></SafeAreaProvider>
     </ThemeProvider>
   );
 }

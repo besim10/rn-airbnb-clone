@@ -26,14 +26,14 @@ const RegisterScreen = () => {
         email,
         password
       );
-      if (response) {
-        console.log(response.user);
-        const docRef = ADD_DOC(COLLECTION(FIRESTORE_DB, "users"), {
-          // pass your name
-          email: email, //pass your email
-          uuid: FIREBASE_AUTH.currentUser.uid,
-        });
-      }
+      const user = response.user;
+      await ADD_DOC(COLLECTION(FIRESTORE_DB, "users"), {
+        uid: user.uid,
+        email,
+        authProvider: "local",
+      });
+
+      console.log(response);
     } catch (error) {
       console.log("Error", error);
     } finally {
