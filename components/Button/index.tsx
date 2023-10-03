@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import { StyleSheet, Text, Pressable, View } from "react-native";
 import React, { ReactNode } from "react";
 import useTheme from "../../hooks/useTheme";
 import { typography } from "../../constants/Typography";
@@ -10,7 +10,7 @@ const Button = (props: IButton) => {
   const { children, onPress } = props;
   const theme = useTheme();
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <Pressable onPress={onPress}>
       <View
         style={[
           { backgroundColor: theme.colors.PRIMARY },
@@ -19,15 +19,16 @@ const Button = (props: IButton) => {
       >
         <Text
           style={{
-            fontSize: typography.FONT_SIZE.M,
+            fontSize: typography.FONT_SIZE.L,
             textAlign: "center",
             color: theme.colors.BACKGROUND,
+            fontFamily: "cereal-bold",
           }}
         >
           {children}
         </Text>
       </View>
-    </TouchableWithoutFeedback>
+    </Pressable>
   );
 };
 

@@ -19,8 +19,8 @@ export default function App() {
     async function prepare() {
       try {
         await Font.loadAsync({
-          "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
-          "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+          "cereal-normal": require("./assets/fonts/AirbnbCereal_W_Bk.otf"),
+          "cereal-bold": require("./assets/fonts/AirbnbCereal_W_Md.otf"),
         });
         await new Promise((resolve: any) => setTimeout(resolve, 2000));
       } catch (e) {
@@ -51,7 +51,6 @@ export default function App() {
           </AuthenticationProvider>
         </SafeAreaProvider>
       </StripeProvider>
-      <SafeAreaProvider onLayout={onLayoutRootView}></SafeAreaProvider>
     </ThemeProvider>
   );
 }

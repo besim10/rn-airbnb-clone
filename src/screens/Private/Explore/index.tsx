@@ -9,6 +9,7 @@ const Explore = () => {
   return (
     <View style={style.body}>
       <Text style={style.test}>Explore Page</Text>
+
       <Button
         onPress={() => {
           theme.toggleTheme();
@@ -31,6 +32,13 @@ const styles = (theme: IThemeContextProps) =>
     test: {
       padding: 20,
       backgroundColor: "red",
+    },
+    viewPager: {
+      flex: 1,
+    },
+    page: {
+      justifyContent: "center",
+      alignItems: "center",
     },
   });
 

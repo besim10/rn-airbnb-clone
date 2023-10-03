@@ -1,9 +1,9 @@
 const FONT_SIZE = {
-  S: 16,
-  M: 22,
-  L: 30,
-  XL: 36,
-  XXL: 45,
+  S: 5,
+  M: 16,
+  L: 18,
+  XL: 32,
+  XXL: 38,
 };
 
 const LETTER_SPACING = {
@@ -20,4 +20,13 @@ const BORDER_RADIUS = {
   XL: 20,
   XXL: 25,
 };
-export const typography = { FONT_SIZE, LETTER_SPACING, BORDER_RADIUS };
+const FONT_FAMILY = {
+  "CEREAL-NORMAL": "cereal-normal",
+  "CEREAL-BOLD": "cereal-bold",
+};
+export const typography = {
+  FONT_SIZE,
+  LETTER_SPACING,
+  BORDER_RADIUS,
+  FONT_FAMILY,
+};

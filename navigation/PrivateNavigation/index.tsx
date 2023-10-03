@@ -6,9 +6,15 @@ import Wishlist from "../../src/screens/Private/Wishlist";
 import Profile from "../../src/screens/Private/Profile";
 import Inbox from "../../src/screens/Private/Inbox";
 import useTheme from "../../hooks/useTheme";
-
+export type TabParamList = {
+  Explore: undefined;
+  Wishlist: undefined;
+  Trips: undefined;
+  Inbox: undefined;
+  Profile: undefined;
+};
 const PrivateNavigation = () => {
-  const Tab = createBottomTabNavigator();
+  const Tab = createBottomTabNavigator<TabParamList>();
 
   const theme = useTheme();
   return (

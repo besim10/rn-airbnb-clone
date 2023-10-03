@@ -1,12 +1,11 @@
-import { StyleSheet, Text, TextComponent, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React, { ReactNode } from "react";
 import { typography } from "../../../constants/Typography";
-type Heading1 = {
+type Heading4 = {
   children: ReactNode;
 };
-export type DefaultProps = Heading1 & Text["props"];
-
-const Heading1 = (props: DefaultProps) => {
+export type DefaultProps = Heading4 & Text["props"];
+const Heading4 = (props: DefaultProps) => {
   const { children, style } = props;
   return (
     <View>
@@ -15,11 +14,11 @@ const Heading1 = (props: DefaultProps) => {
   );
 };
 
-export default Heading1;
+export default Heading4;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: typography.FONT_SIZE.XL,
-    fontFamily: "cereal-bold",
+    fontSize: typography.FONT_SIZE.S,
+    fontFamily: "cereal-normal",
   },
 });
