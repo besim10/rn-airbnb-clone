@@ -27,6 +27,7 @@ const PrivateNavigation = () => {
         component={Explore}
         options={{
           title: "Explore",
+          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons name="md-search-outline" size={24} color={color} />
           ),

@@ -6,11 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { typography } from "../../constants/Typography";
 import useTheme from "../../hooks/useTheme";
 import { differenceInDays } from "date-fns";
-export interface ImageCarouselItem {
-  id: number;
-  uri: string;
-  title: string;
-}
+
 export interface IPropertyInfo {
   city: string;
   state: string;
@@ -19,37 +15,36 @@ export interface IPropertyInfo {
   rating: number;
   startDate: Date;
   endDate: Date;
+  images: string[];
 }
 interface IImageCard {
-  imagesData: ImageCarouselItem[];
-  propertyInfo: IPropertyInfo;
+  data: IPropertyInfo;
 }
 
 const ImageCard = (props: IImageCard) => {
-  const { imagesData, propertyInfo } = props;
+  const {
+    data: { city, distance, endDate, images, price, rating, startDate, state },
+  } = props;
   const theme = useTheme();
+
+  // console.log(startDatee);
   const getNights = useCallback(() => {
-    const {} = propertyInfo.startDate;
-    const {
-      propertyInfo: { startDate, endDate },
-    } = props;
-    return differenceInDays(startDate, endDate) - 1;
+    return differenceInDays(endDate, startDate);
   }, []);
   return (
     <View style={styles.imageCardWrapper}>
-      <ImagesCarousel data={imagesData} />
+      <ImagesCarousel data={images} />
       <View style={{ marginTop: typography.LETTER_SPACING.tiny }}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Paragraph mode="bold" color={theme.colors.TEXT}>
-            {propertyInfo.city}, {propertyInfo.state}
+            {city}, {state}
           </Paragraph>
           <Paragraph color={theme.colors.TEXT}>
             <Ionicons name="star" size={14} color="black" />
-            {propertyInfo.rating}
+            {rating}
           </Paragraph>
         </View>
-        <Paragraph>{propertyInfo.distance} kilometers away</Paragraph>
-        <Paragraph>{propertyInfo.city} kilometers away</Paragraph>
+        <Paragraph>{distance} kilometers away</Paragraph>
         <Paragraph>{getNights()} nights</Paragraph>
         <Paragraph
           color={theme.colors.TEXT}
@@ -60,7 +55,7 @@ const ImageCard = (props: IImageCard) => {
           }}
         >
           <Text style={{ fontFamily: typography.FONT_FAMILY["CEREAL-BOLD"] }}>
-            {propertyInfo.price} CHF
+            {price} CHF
           </Text>{" "}
           total before taxes
         </Paragraph>
@@ -73,6 +68,6 @@ export default ImageCard;
 
 const styles = StyleSheet.create({
   imageCardWrapper: {
-    // backgroundColor: "#afe",
+    margin: typography.LETTER_SPACING.base,
   },
 });

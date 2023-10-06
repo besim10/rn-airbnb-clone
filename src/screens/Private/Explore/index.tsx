@@ -1,74 +1,98 @@
 import {
-  Button,
+  FlatList,
   StyleProp,
   StyleSheet,
-  Text,
   View,
-  FlatList,
-  Dimensions,
+  Text,
+  TextInput,
 } from "react-native";
 import { Image } from "expo-image";
 import useTheme from "../../../../hooks/useTheme";
 import useThemedStyles from "../../../../hooks/useThemedStyles";
 import { IThemeContextProps } from "../../../app/providers/ThemeProvider";
-import PagerView from "react-native-pager-view";
 import { typography } from "../../../../constants/Typography";
 import RootWrapper from "../../../../components/Screen/RootPadding";
 import ImageCard, { IPropertyInfo } from "../../../../components/ImageCard";
-interface ImageCarouselItem {
-  id: number;
-  uri: string;
-  title: string;
+import { useEffect, useState } from "react";
+import { ADD_DOC, COLLECTION, FIRESTORE_DB } from "../../../firebase/config";
+import { Timestamp, getDocs } from "firebase/firestore";
+import Button from "../../../../components/Button";
+import ListingList from "../../../../components/ListingList";
+import { Ionicons } from "@expo/vector-icons";
+interface IListingItem {
+  uid: string;
+  city: string;
+  distance: string;
+  price: string;
+  rating: number;
+  state: string;
+  startDate: any;
+  endDate: any;
+  images: string[];
 }
-const data: ImageCarouselItem[] = [
-  {
-    id: 0,
-    uri: "https://images.unsplash.com/photo-1607326957431-29d25d2b386f",
-    title: "Dahlia",
-  }, // https://unsplash.com/photos/Jup6QMQdLnM
-  {
-    id: 1,
-    uri: "https://images.unsplash.com/photo-1512238701577-f182d9ef8af7",
-    title: "Sunflower",
-  }, // https://unsplash.com/photos/oO62CP-g1EA
-  {
-    id: 2,
-    uri: "https://images.unsplash.com/photo-1627522460108-215683bdc9f6",
-    title: "Zinnia",
-  }, // https://unsplash.com/photos/gKMmJEvcyA8
-  {
-    id: 3,
-    uri: "https://images.unsplash.com/photo-1587814213271-7a6625b76c33",
-    title: "Tulip",
-  }, // https://unsplash.com/photos/N7zBDF1r7PM
-  {
-    id: 4,
-    uri: "https://images.unsplash.com/photo-1588628566587-dbd176de94b4",
-    title: "Chrysanthemum",
-  }, // https://unsplash.com/photos/GsGZJMK0bJc
-  {
-    id: 5,
-    uri: "https://images.unsplash.com/photo-1501577316686-a5cbf6c1df7e",
-    title: "Hydrangea",
-  }, // https://unsplash.com/photos/coIBOiWBPjk
-];
-const propertyInfo: IPropertyInfo = {
-  city: "Tirana",
-  distance: "10",
-  price: "12",
-  rating: 12.87,
-  state: "Albania",
-  startDate: new Date("2023-06-02"),
-  endDate: new Date("2023-06-02"),
-};
+
+// const propertyInfo: IPropertyInfo = {
+//   city: "Tirana",
+//   distance: "10",
+//   price: "12",
+//   rating: 12.87,
+//   state: "Albania",
+//   startDate: new Date("2023-06-02"),
+//   endDate: new Date("2023-06-10"),
+//   // images: ["Feafa", "eafaefea"],
+// };
 const Explore = () => {
   const theme = useTheme();
   const style = useThemedStyles(styles);
+  const [listings, setListing] = useState<IListingItem[]>([]);
+  const getListings = async () => {
+    const lisingList = COLLECTION(FIRESTORE_DB, "listings");
+    try {
+      const listingSnapshot = await getDocs(lisingList);
 
+      const listingsList = listingSnapshot.docs.map((doc) => doc.data());
+      const temporary: any[] = listingsList;
+      setListing(temporary);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getListings();
+  }, []);
+
+  if (listings.length === 0) return;
   return (
-    <RootWrapper>
-      <ImageCard imagesData={data} propertyInfo={propertyInfo} />
-    </RootWrapper>
+    <View>
+      <View
+        style={{
+          paddingTop: 56,
+          paddingHorizontal: typography.LETTER_SPACING.base,
+        }}
+      >
+        <View
+          style={{
+            height: 56,
+            justifyContent: "flex-start",
+            alignItems: "center",
+            gap: 5,
+            borderRadius: typography.BORDER_RADIUS.XXL,
+            width: "100%",
+            borderWidth: 1,
+            paddingHorizontal: typography.LETTER_SPACING.base,
+            flexDirection: "row",
+          }}
+        >
+          <Ionicons name="search" size={20} color="black" />
+          <View>
+            <Text>Where to?</Text>
+            <TextInput placeholder="Where to?" />
+          </View>
+        </View>
+      </View>
+      <ListingList data={listings} />
+    </View>
   );
 };
 const styles = (theme: IThemeContextProps) => StyleSheet.create({});

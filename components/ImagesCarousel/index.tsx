@@ -1,10 +1,9 @@
 import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { ImageCarouselItem } from "../ImageCard";
 import { Image } from "expo-image";
 import { typography } from "../../constants/Typography";
 interface IImagesCarousel {
-  data: ImageCarouselItem[];
+  data: string[];
 }
 const window = Dimensions.get("window");
 const blurhash =
@@ -25,7 +24,7 @@ const ImagesCarousel = (props: IImagesCarousel) => {
         data={data}
         indicatorStyle="white"
         // showsHorizontalScrollIndicator={false}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item}
         renderItem={({ item }) => {
           return (
             <Image
@@ -34,7 +33,7 @@ const ImagesCarousel = (props: IImagesCarousel) => {
                 height: window.width - typography.LETTER_SPACING.base,
                 overflow: "hidden",
               }}
-              source={item.uri}
+              source={{ uri: item }}
               placeholder={blurhash}
               contentFit="cover"
               transition={1000}
@@ -47,5 +46,3 @@ const ImagesCarousel = (props: IImagesCarousel) => {
 };
 
 export default ImagesCarousel;
-
-const styles = StyleSheet.create({});
