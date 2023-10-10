@@ -10,6 +10,8 @@ import {
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { mapStyle } from "./mapStyle";
 import { typography } from "../../constants/Typography";
+import { BoxShadowStyle } from "../../src/styles/Common/BoxShadow";
+import useTheme from "../../hooks/useTheme";
 const properties = [
   {
     id: 1,
@@ -31,12 +33,14 @@ const properties = [
   // Add more properties here
 ];
 export function GoogleMap() {
+  const theme = useTheme();
   return (
     <View style={styles.container}>
       <MapView
         userLocationPriority="high"
         showsUserLocation
         showsMyLocationButton
+        loadingEnabled
         customMapStyle={mapStyle}
         provider={PROVIDER_GOOGLE}
         style={styles.mapStyle}
@@ -63,12 +67,20 @@ export function GoogleMap() {
             >
               <View
                 style={{
-                  backgroundColor: "#fe2",
+                  ...BoxShadowStyle.container,
+                  backgroundColor: theme.colors.WHITE,
                   padding: typography.LETTER_SPACING.tiny,
-                  borderRadius: typography.BORDER_RADIUS.M,
+                  borderRadius: typography.BORDER_RADIUS.L,
+                  overflow: "hidden",
+                  borderWidth: 1,
+                  borderColor: theme.colors.TEXT_GRAY,
                 }}
               >
-                <Text>{property.price}</Text>
+                <Text
+                  style={{ fontFamily: typography.FONT_FAMILY["CEREAL-BOLD"] }}
+                >
+                  € {property.price}
+                </Text>
               </View>
             </Marker>
           </Pressable>
@@ -81,7 +93,6 @@ export function GoogleMap() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
   },

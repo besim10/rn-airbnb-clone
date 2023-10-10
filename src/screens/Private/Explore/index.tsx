@@ -1,29 +1,15 @@
-import {
-  FlatList,
-  StyleProp,
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  SafeAreaView,
-  Pressable,
-  TouchableOpacity,
-  Modal,
-  ImageBackground,
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import useTheme from "../../../../hooks/useTheme";
-import useThemedStyles from "../../../../hooks/useThemedStyles";
-import { IThemeContextProps } from "../../../app/providers/ThemeProvider";
 import { typography } from "../../../../constants/Typography";
 import RootWrapper from "../../../../components/Screen/RootPadding";
 import ImageCard, { IPropertyInfo } from "../../../../components/ImageCard";
 import { useEffect, useState } from "react";
 import { ADD_DOC, COLLECTION, FIRESTORE_DB } from "../../../firebase/config";
-import { Timestamp, getDocs } from "firebase/firestore";
-import ListingList from "../../../../components/ListingList";
+import { getDocs } from "firebase/firestore";
 import { Ionicons } from "@expo/vector-icons";
 import { GoogleMap } from "../../../../components/GoogleMap";
+import { BoxShadowStyle } from "../../../styles/Common/BoxShadow";
 interface IListingItem {
   uid: string;
   city: string;
@@ -78,21 +64,26 @@ const Explore = () => {
   return (
     <View style={styles.root}>
       <View
-        style={{
-          paddingTop: 56,
-          paddingHorizontal: typography.LETTER_SPACING.base,
-        }}
+        style={[
+          {
+            paddingVertical: 56,
+            paddingHorizontal: typography.LETTER_SPACING.base,
+          },
+          BoxShadowStyle.container,
+        ]}
       >
         <TouchableOpacity onPress={onSearchPressHandler}>
           <View
             style={{
-              height: 56,
+              height: 50,
+              backgroundColor: theme.colors.BACKGROUND,
               justifyContent: "flex-start",
               alignItems: "center",
               gap: 5,
               borderRadius: typography.BORDER_RADIUS.XXL,
               width: "100%",
-              borderWidth: 1,
+              borderWidth: 0.2,
+              borderColor: theme.colors.TEXT_GRAY,
               paddingHorizontal: typography.LETTER_SPACING.base,
               flexDirection: "row",
             }}

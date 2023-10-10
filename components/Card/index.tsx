@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React, { ReactNode } from "react";
 import { typography } from "../../constants/Typography";
 import useTheme from "../../hooks/useTheme";
+import { BoxShadowStyle } from "../../src/styles/Common/BoxShadow";
 interface ICard {
   children: ReactNode;
 }
@@ -30,10 +31,7 @@ export default Card;
 const styles = StyleSheet.create({
   cardContainer: {
     borderRadius: typography.BORDER_RADIUS.L,
-    elevation: 8,
-    shadowOffset: { height: 2, width: 0 },
-    shadowOpacity: 0.3,
-    shadowRadius: 15,
     padding: typography.LETTER_SPACING.base,
+    ...BoxShadowStyle.container,
   },
 });
