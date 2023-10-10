@@ -5,6 +5,11 @@ import {
   View,
   Text,
   TextInput,
+  SafeAreaView,
+  Pressable,
+  TouchableOpacity,
+  Modal,
+  ImageBackground,
 } from "react-native";
 import { Image } from "expo-image";
 import useTheme from "../../../../hooks/useTheme";
@@ -16,9 +21,9 @@ import ImageCard, { IPropertyInfo } from "../../../../components/ImageCard";
 import { useEffect, useState } from "react";
 import { ADD_DOC, COLLECTION, FIRESTORE_DB } from "../../../firebase/config";
 import { Timestamp, getDocs } from "firebase/firestore";
-import Button from "../../../../components/Button";
 import ListingList from "../../../../components/ListingList";
 import { Ionicons } from "@expo/vector-icons";
+import { GoogleMap } from "../../../../components/GoogleMap";
 interface IListingItem {
   uid: string;
   city: string;
@@ -41,9 +46,11 @@ interface IListingItem {
 //   endDate: new Date("2023-06-10"),
 //   // images: ["Feafa", "eafaefea"],
 // };
+
 const Explore = () => {
   const theme = useTheme();
-  const style = useThemedStyles(styles);
+  const [modalVisible, setModalVisible] = useState(false);
+  // const style = useThemedStyles(styles);
   const [listings, setListing] = useState<IListingItem[]>([]);
   const getListings = async () => {
     const lisingList = COLLECTION(FIRESTORE_DB, "listings");
@@ -61,40 +68,57 @@ const Explore = () => {
   useEffect(() => {
     getListings();
   }, []);
-
+  const toggleModal = () => {
+    setModalVisible((prevState) => !prevState);
+  };
+  const onSearchPressHandler = () => {
+    toggleModal();
+  };
   if (listings.length === 0) return;
   return (
-    <View>
+    <View style={styles.root}>
       <View
         style={{
           paddingTop: 56,
           paddingHorizontal: typography.LETTER_SPACING.base,
         }}
       >
-        <View
-          style={{
-            height: 56,
-            justifyContent: "flex-start",
-            alignItems: "center",
-            gap: 5,
-            borderRadius: typography.BORDER_RADIUS.XXL,
-            width: "100%",
-            borderWidth: 1,
-            paddingHorizontal: typography.LETTER_SPACING.base,
-            flexDirection: "row",
-          }}
-        >
-          <Ionicons name="search" size={20} color="black" />
-          <View>
+        <TouchableOpacity onPress={onSearchPressHandler}>
+          <View
+            style={{
+              height: 56,
+              justifyContent: "flex-start",
+              alignItems: "center",
+              gap: 5,
+              borderRadius: typography.BORDER_RADIUS.XXL,
+              width: "100%",
+              borderWidth: 1,
+              paddingHorizontal: typography.LETTER_SPACING.base,
+              flexDirection: "row",
+            }}
+          >
+            <Ionicons name="search" size={20} color="black" />
             <Text>Where to?</Text>
-            <TextInput placeholder="Where to?" />
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
-      <ListingList data={listings} />
+      <GoogleMap />
+      {/* <ListingList data={listings} />
+
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <SafeAreaView
+          style={{
+            flex: 1,
+          }}
+        ></SafeAreaView>
+      </Modal> */}
     </View>
   );
 };
-const styles = (theme: IThemeContextProps) => StyleSheet.create({});
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+});
 
 export default Explore;

@@ -5,20 +5,15 @@ import useTheme from "../../../hooks/useTheme";
 
 interface IRootWrapper {
   children: ReactNode;
-  scrollableView?: boolean;
 }
 const RootWrapper = (props: IRootWrapper) => {
-  const { children, scrollableView } = props;
+  const { children } = props;
   const theme = useTheme();
   return (
     <SafeAreaView
       style={{ ...styles.root, backgroundColor: theme.colors.BACKGROUND }}
     >
-      {scrollableView ? (
-        <ScrollView style={styles.container}>{children}</ScrollView>
-      ) : (
-        <View style={styles.container}>{children}</View>
-      )}
+      <ScrollView style={styles.container}>{children}</ScrollView>
     </SafeAreaView>
   );
 };
