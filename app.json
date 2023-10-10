@@ -11,24 +11,37 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "buildNumber": "1.0.0",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.besim10.airbnbclone",
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.besim10.airbnbclone",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "owner": "besim10",
     "extra": {
       "eas": {
-        "projectId": "f40a0727-9d34-44f2-a7ce-3045900b2c33"
+        "projectId": "edda3187-a44c-41a6-b4f3-c3602ba6aee6"
       }
     },
-    "owner": "besim10"
+    "updates": {
+      "url": "https://u.expo.dev/edda3187-a44c-41a6-b4f3-c3602ba6aee6"
+    }
   }
 }
