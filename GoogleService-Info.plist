@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyC6G0mhU_xiTvDMSpJVa95Fpk0Ffo3otcE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>94084434148</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.besim10.airbnbclone</string>
+	<key>PROJECT_ID</key>
+	<string>airbnb-clone-f21a0</string>
+	<key>STORAGE_BUCKET</key>
+	<string>airbnb-clone-f21a0.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:94084434148:ios:674a7959ef63590bd884f1</string>
+	<key>DATABASE_URL</key>
+	<string>https://airbnb-clone-f21a0-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

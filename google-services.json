@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "94084434148",
+    "firebase_url": "https://airbnb-clone-f21a0-default-rtdb.firebaseio.com",
+    "project_id": "airbnb-clone-f21a0",
+    "storage_bucket": "airbnb-clone-f21a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94084434148:android:b0d0979ea109ba69d884f1",
+        "android_client_info": {
+          "package_name": "com.besim10.airbnbclone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI6g9Sm5Bh0eW2d8bWDRXNaDd28rjQZbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

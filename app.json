@@ -11,19 +11,22 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "buildNumber": "1.0.0",
+      "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true,
       "bundleIdentifier": "com.besim10.airbnbclone",
       "runtimeVersion": {
         "policy": "appVersion"
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyD1ALj27l6CGDsudmZ0dLrN-BquBE9-Uc8"
       }
     },
     "android": {
       "versionCode": 1,
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -42,6 +45,17 @@
     },
     "updates": {
       "url": "https://u.expo.dev/edda3187-a44c-41a6-b4f3-c3602ba6aee6"
-    }
+    },
+    "plugins": [
+      "@react-native-firebase/app",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ]
   }
 }

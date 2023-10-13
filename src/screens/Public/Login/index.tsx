@@ -7,12 +7,12 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../../navigation/PublicNavigation";
 import { NavigationProp } from "@react-navigation/native";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import {
-  ADD_DOC,
-  COLLECTION,
-  FIREBASE_AUTH,
-  FIRESTORE_DB,
-} from "../../../firebase/config";
+// import {
+//   ADD_DOC,
+//   COLLECTION,
+//   FIREBASE_AUTH,
+//   FIRESTORE_DB,
+// } from "../../../firebase/config";
 import {
   initPaymentSheet,
   presentPaymentSheet,

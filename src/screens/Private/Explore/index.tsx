@@ -5,7 +5,7 @@ import { typography } from "../../../../constants/Typography";
 import RootWrapper from "../../../../components/Screen/RootPadding";
 import ImageCard, { IPropertyInfo } from "../../../../components/ImageCard";
 import { useEffect, useState } from "react";
-import { ADD_DOC, COLLECTION, FIRESTORE_DB } from "../../../firebase/config";
+// import { ADD_DOC, COLLECTION, FIRESTORE_DB } from "../../../firebase/config";
 import { getDocs } from "firebase/firestore";
 import { Ionicons } from "@expo/vector-icons";
 import { GoogleMap } from "../../../../components/GoogleMap";
@@ -39,16 +39,16 @@ const Explore = () => {
   // const style = useThemedStyles(styles);
   const [listings, setListing] = useState<IListingItem[]>([]);
   const getListings = async () => {
-    const lisingList = COLLECTION(FIRESTORE_DB, "listings");
-    try {
-      const listingSnapshot = await getDocs(lisingList);
-
-      const listingsList = listingSnapshot.docs.map((doc) => doc.data());
-      const temporary: any[] = listingsList;
-      setListing(temporary);
-    } catch (error) {
-      console.log(error);
-    }
+    return [];
+    // const lisingList = COLLECTION(FIRESTORE_DB, "listings");
+    // try {
+    //   const listingSnapshot = await getDocs(lisingList);
+    //   const listingsList = listingSnapshot.docs.map((doc) => doc.data());
+    //   const temporary: any[] = listingsList;
+    //   setListing(temporary);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const Explore = () => {
   const onSearchPressHandler = () => {
     toggleModal();
   };
-  if (listings.length === 0) return;
+  // if (listings.length === 0) return;
   return (
     <View style={styles.root}>
       <View
@@ -109,6 +109,7 @@ const Explore = () => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    // backgroundColor: "#123",
   },
 });
 
