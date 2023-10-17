@@ -2,7 +2,7 @@ import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
 import useTheme from "../../../../hooks/useTheme";
 import useThemedStyles from "../../../../hooks/useThemedStyles";
 import { IThemeContextProps } from "../../../app/providers/ThemeProvider";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../../navigation/PublicNavigation";
 import { NavigationProp } from "@react-navigation/native";
@@ -26,9 +26,8 @@ const LoginScreen = ({ navigation }: RouterProps) => {
   const [password, setPassword] = useState("");
   const [ready, setReady] = useState(false);
   const theme = useTheme();
-  const auth = FIREBASE_AUTH;
 
-  const style = useThemedStyles(styles);
+  const style = useMemo(() => styles(theme), [theme]);
   const onRegisterPressHandler = useCallback(() => {
     navigation.navigate("Register");
   }, []);
@@ -49,54 +48,53 @@ const LoginScreen = ({ navigation }: RouterProps) => {
     setPassword(value);
   };
 
-  const initialisePaymentSheet = async () => {
-    const res = await ADD_DOC(
-      COLLECTION(
-        FIRESTORE_DB,
-        `/users/REC5HU89tdS0x6Z4dWfApkxcoM03/checkout_sessions`
-      ),
-      { client: "mobile", mode: "payment", amount: 125, currency: "eur" }
-    );
+  // const initialisePaymentSheet = async () => {
+  //   const res = await ADD_DOC(
+  //     COLLECTION(
+  //       FIRESTORE_DB,
+  //       `/users/REC5HU89tdS0x6Z4dWfApkxcoM03/checkout_sessions`
+  //     ),
+  //     { client: "mobile", mode: "payment", amount: 125, currency: "eur" }
+  //   );
 
-    if (res && res.id) {
-      await listenToDocumentChange(res.id);
-    }
-  };
-  const listenToDocumentChange = async (id: string) => {
-    const docRef = doc(
-      FIRESTORE_DB,
-      "users",
-      "REC5HU89tdS0x6Z4dWfApkxcoM03",
-      "checkout_sessions",
-      id
-    );
-    onSnapshot(docRef, async (docSnapshot) => {
-      if (docSnapshot.exists()) {
-        const data = docSnapshot.data();
-        if (data.paymentIntentClientSecret) {
-          const { error } = await initPaymentSheet({
-            merchantDisplayName: "Excample INC.",
-            customerId: data.customer,
-            customerEphemeralKeySecret: data.ephemeralKeySecret,
-            paymentIntentClientSecret: data.paymentIntentClientSecret,
-            returnURL: "stripe-example://stripe-redirect",
-            allowsDelayedPaymentMethods: true,
-          });
-          try {
-            console.log("HAHAHA");
-            const { error } = await presentPaymentSheet({ timeout: 4000 });
-          } catch (error) {
-            console.log(error);
-          }
-          if (error) {
-            console.log("error", error);
-          }
-        }
-      } else {
-        console.log("Oops, no such document!");
-      }
-    });
-  };
+  //   if (res && res.id) {
+  //     await listenToDocumentChange(res.id);
+  //   }
+  // };
+  // const listenToDocumentChange = async (id: string) => {
+  //   const docRef = doc(
+  //     FIRESTORE_DB,
+  //     "users",
+  //     "REC5HU89tdS0x6Z4dWfApkxcoM03",
+  //     "checkout_sessions",
+  //     id
+  //   );
+  //   onSnapshot(docRef, async (docSnapshot) => {
+  //     if (docSnapshot.exists()) {
+  //       const data = docSnapshot.data();
+  //       if (data.paymentIntentClientSecret) {
+  //         const { error } = await initPaymentSheet({
+  //           merchantDisplayName: "Excample INC.",
+  //           customerId: data.customer,
+  //           customerEphemeralKeySecret: data.ephemeralKeySecret,
+  //           paymentIntentClientSecret: data.paymentIntentClientSecret,
+  //           returnURL: "stripe-example://stripe-redirect",
+  //           allowsDelayedPaymentMethods: true,
+  //         });
+  //         try {
+  //           const { error } = await presentPaymentSheet({ timeout: 4000 });
+  //         } catch (error) {
+  //           console.log(error);
+  //         }
+  //         if (error) {
+  //           console.log("error", error);
+  //         }
+  //       }
+  //     } else {
+  //       console.log("Oops, no such document!");
+  //     }
+  //   });
+  // };
   useEffect(() => {
     // initialisePaymentSheet();
   }, []);
@@ -108,7 +106,7 @@ const LoginScreen = ({ navigation }: RouterProps) => {
     //   Alert.alert(`Success`, "The payment was confirmed succesfully ");
     //   setReady(true);
     // }
-    initialisePaymentSheet();
+    // initialisePaymentSheet();
   };
   return (
     <View style={style.root}>
@@ -143,7 +141,7 @@ const styles = (theme: IThemeContextProps) =>
   StyleSheet.create({
     root: {
       flex: 1,
-      padding: theme.typography.letterSpacing.base,
+      padding: theme.typography.LETTER_SPACING.base,
       backgroundColor: theme.colors.BACKGROUND,
       justifyContent: "center",
       // alignItems: "center",
@@ -154,6 +152,6 @@ const styles = (theme: IThemeContextProps) =>
       borderColor: "#aaa",
       borderWidth: 1,
       borderRadius: 10,
-      padding: theme.typography.letterSpacing.tiny,
+      padding: theme.typography.LETTER_SPACING.tiny,
     },
   });
